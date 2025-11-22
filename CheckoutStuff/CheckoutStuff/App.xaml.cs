@@ -29,12 +29,6 @@ public partial class App : Application {
 	/// <param name="args">Details about the launch request and process.</param>
 	protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args) {
 		_window = new MainWindow();
-
-		Frame rootFrame = new();
-		rootFrame.NavigationFailed += OnNavigationFailed;
-		rootFrame.Navigate(typeof(ScanningPage), args.Arguments);
-
-		_window.Content = rootFrame;
 		_window.Activate();
 	}
 

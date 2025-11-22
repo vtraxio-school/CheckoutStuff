@@ -12,6 +12,8 @@ namespace CheckoutStuff;
 public sealed partial class MainWindow : Window {
 	public MainWindow() {
 		InitializeComponent();
-		AppWindow.TitleBar.PreferredTheme = TitleBarTheme.UseDefaultAppMode;
+
+		ExtendsContentIntoTitleBar = true;
+		SetTitleBar(AppTitleBar);
 	}
 }
