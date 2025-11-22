@@ -1,0 +1,82 @@
+SECTION DEF
+NAME Biedronka sp. bez o.
+ADR1 ul. Mamy kacperka
+ADR2 67-420 Pieczarkowo
+NIP	696742041
+
+SECTION PROD
+GROUP Pieczywo Chleb.png
+	PRODUCT Chleb Chleb.png SZT 5,14 
+	PRODUCT "Bułka kajzerka" Kajzerka.png SZT 0,34
+ENDGROUP
+GROUP Słodycze Czekolada.png
+	PRODUCT "Czekolada mleczna Wedel" Czekolada.png SZT 8,15
+	PRODUCT "Płatki kukurydziane" Płatki.png SZT 5,44
+	PRODUCT "Dżem Herbapol" Dżem.png SZT 5,84
+ENDGROUP
+GROUP Nabiał Ser.png
+	PRODUCT "Serek wiejski Piątnica Naturalny" Serek.png SZT 2,91
+	PRODUCT "Śmietana Piątnica 18%" Śmietana.png SZT 2,62
+	PRODUCT "10 jaj" Jaja.png SZT 10,20
+	PRODUCT "Ser żółty gouda" Ser.png SZT 28,51
+	PRODUCT "Mleko Łowickie 3,2%" Mleko.png SZT 4,12
+	PRODUCT "Jogurt Zott Jogobella" Jogurt.png SZT 1,90
+ENDGROUP
+GROUP Sypkie Mąka.png
+	PRODUCT "Mąka pszenna poznańska typ 500" Mąka.png SZT 2,41
+	PRODUCT "Cukier biały krzyształ" Cukier.png SZT 2,94
+	PRODUCT "Sól" Sól.png SZT 1,82
+	PRODUCT "Makaron Primo Gustro penne rigate" Penne.png SZT 5,95
+	PRODUCT "Makaron Primo Gustro spaghetti" Spaghetti.png SZT 5,95
+ENDGROUP
+GROUP Owoce Jabłka.png
+	PRODUCT Banany Banany.png KG 5,29
+	PRODUCT "Jabłka Polskie" Jabłka.png KG 3,97
+	PRODUCT Cytryny Cytryny.png KG 8,06
+	PRODUCT Pomarańcze Pomarańcze.png KG 7,14
+ENDGROUP
+GROUP Używki Piwo.png
+	PRODUCT "Herbata Lipton Yellow Label" Herbata.png SZT 20,17
+	PRODUCT "Piwo Żywiec" Piwo.png SZT 4,35
+	PRODUCT "Kawa mielona Tchibo Family" Kawa.png SZT 20,71
+ENDGROUP
+GROUP Napoje Woda.png
+	PRODUCT "Sok pomarańczowy Tymbark" Sokp.png SZT 9,18
+	PRODUCT "Woda niegazowana Żywiec Zdrój" Woda.png SZT 2,70
+	PRODUCT "Napój Tymbark jabłko-wiśnia" Sokj.png SZT 3,09
+ENDGROUP
+GROUP Tłuszcze Masło.png
+	PRODUCT "Olej Kujawski" Olej.png SZT 10,66
+	PRODUCT "Masło extra" Masło.png SZT 7,25
+	PRODUCT "Margaryna Rama Classic" Margaryna.png SZT 9,83
+ENDGROUP
+GROUP Chemia Ludwik.png
+	PRODUCT "Papier toaletowy biały, 100% celulozy" Papier.png SZT 7,14
+	PRODUCT "Płyn do zmywania naczyń Ludwik miętowy" Ludwik.png SZT 8,61
+	PRODUCT "Pasta do zębów Colgate Herbal" Colgate.png SZT 11,54
+	PRODUCT "Mydło Dove" Dove.png SZT 6,22
+	PRODUCT "Domestos do mycia/czyszczenia toalet" Domestos.png SZT 10,36
+	PRODUCT "Szampon do włosów Timotei" Szampon.png SZT 8,74
+	PRODUCT "Proszek do prania Vizir" Vizir.png SZT 8,05
+	PRODUCT "Ręczniki papierowe" Ręcznik.png SZT 4,83
+ENDGROUP
+GROUP Dodatki Ketchup.png
+	PRODUCT "Ketchup Pudliszki" Ketchup.png SZT 6,12
+	PRODUCT "Musztarda Kamis" Musztarda.png SZT 3,20
+ENDGROUP
+GROUP Mięso Kurczak.png
+	PRODUCT "Parówki Berlinki" Parówki.png SZT 5,48
+	PRODUCT "Polędwica sopocka plastry, pakowane próżniowo" Polędwica.png SZT 19,48
+	PRODUCT "Kurczak cały" Kurczak.png KG 12,47
+	PRODUCT "Schab bez kości" Schab.png KG 16,86
+	PRODUCT "Śledziowe matjasy w oleju" Matjasy.png SZT 14,77
+	PRODUCT "Kiełbasa podwawelska 80% mięsa wieprzowego" Kiełbasa.png SZT 26,85
+	PRODUCT "Szynka wiejska plastry, pakowane próżniowo" Szynka.png SZT 0,00
+ENDGROUP
+GROUP Warzywa Pomidory.png
+	PRODUCT Ziemniaki Ziemniaki.png KG 1,75
+	PRODUCT Pomidory Pomidory.png KG 6,96
+	PRODUCT "Papryka czerwona" Papryka.png KG 10,25
+	PRODUCT Pieczarki Pieczarki.png KG 13,26
+	PRODUCT "Stephen Hawking" Hawking.png SZT 9999999,99
+ENDGROUP
