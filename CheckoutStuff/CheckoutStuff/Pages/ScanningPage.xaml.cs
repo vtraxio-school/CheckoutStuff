@@ -31,4 +31,15 @@ public sealed partial class ScanningPage : Page {
 	private void CategoryBackButton_OnClicked(object sender, RoutedEventArgs e) {
 		viewModel.SelectGroupCommand.Execute(null);
 	}
+
+	private void ProductItemView_ItemInvoked(ItemsView sender, ItemsViewItemInvokedEventArgs args) {
+		var product = args.InvokedItem as Product;
+		viewModel.AddProductCommand.Execute(product);
+	}
+
+	private void AddedProducts_ItemSelected(ItemsView sender, ItemsViewSelectionChangedEventArgs args) {
+		if (AddedItems.SelectedItem is AddedProduct product) {
+			viewModel.SelectItemCommand.Execute(product.Product);
+		}
+	}
 }

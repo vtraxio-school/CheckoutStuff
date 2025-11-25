@@ -8,6 +8,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:configuration="using:CheckoutStuff.Configuration"
+	xmlns:viewModels="using:CheckoutStuff.ViewModels"
 	mc:Ignorable="d">
 
 	<Grid Padding="36" ColumnSpacing="16">
@@ -50,7 +51,7 @@
 				           Style="{StaticResource BodyLargeStrongTextBlockStyle}" VerticalAlignment="Center" />
 			</StackPanel>
 			<ItemsView ItemsSource="{x:Bind viewModel.SelectedGroup.Products, Mode=OneWay}" SelectionMode="None"
-			           IsItemInvokedEnabled="True">
+			           IsItemInvokedEnabled="True" ItemInvoked="ProductItemView_ItemInvoked">
 				<ItemsView.Layout>
 					<UniformGridLayout ItemsStretch="Fill" MinColumnSpacing="16" MinRowSpacing="16" />
 				</ItemsView.Layout>
@@ -63,7 +64,7 @@
 								<TextBlock Text="{x:Bind Name}" Style="{StaticResource BodyTextBlockStyle}" TextWrapping="Wrap" />
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Text="{x:Bind StrPrice}" Foreground="{ThemeResource AccentTextFillColorSecondaryBrush}" />
-									<TextBlock Text="{x:Bind StrPriceClass}" TextAlignment="End"/>
+									<TextBlock Text="{x:Bind StrPriceClass}" TextAlignment="End" />
 								</StackPanel>
 							</StackPanel>
 						</ItemContainer>
@@ -72,6 +73,46 @@
 			</ItemsView>
 		</StackPanel>
 
-		<Rectangle Grid.Column="1" Fill="Red" />
+		<Grid Grid.Column="1" RowDefinitions="*,Auto,Auto,Auto" RowSpacing="24">
+			<ItemsView x:Name="AddedItems" ItemsSource="{x:Bind viewModel.AddedProducts, Mode=OneWay}" SelectionMode="Single"
+			           SelectionChanged="AddedProducts_ItemSelected">
+				<ItemsView.ItemTemplate>
+					<DataTemplate x:DataType="viewModels:AddedProduct">
+						<ItemContainer>
+							<Grid RowDefinitions="*,Auto" ColumnDefinitions="Auto,*,Auto" Padding="16" ColumnSpacing="8">
+								<Image Grid.RowSpan="2" Source="{x:Bind Product.Image}" Height="25" />
+								<TextBlock Grid.Column="1" Text="{x:Bind Product.Name}" Style="{StaticResource BodyStrongTextBlockStyle}" />
+								<TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind StrCountingPrice}" />
+								<TextBlock Grid.Column="2" Grid.RowSpan="2" Text="{x:Bind StrTotalPrice}"
+								           Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
+							</Grid>
+						</ItemContainer>
+					</DataTemplate>
+				</ItemsView.ItemTemplate>
+			</ItemsView>
+			<Button Grid.Row="1" Background="{ThemeResource SystemFillColorCriticalBrush}" Content="Usuń"
+			        HorizontalAlignment="Stretch" Command="{x:Bind viewModel.DeleteItemCommand}" />
+			<Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" RowSpacing="8">
+				<TextBlock Text="Rabat" Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+				           Style="{StaticResource SubtitleTextBlockStyle}" />
+				<TextBlock Grid.Column="2" Text="0 zł" Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+				           Style="{StaticResource SubtitleTextBlockStyle}" />
+				<TextBlock Grid.Row="1" Text="Suma" Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+				           Style="{StaticResource SubtitleTextBlockStyle}" />
+				<TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Bind viewModel.StrTotal, Mode=OneWay}"
+				           Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+				           Style="{StaticResource SubtitleTextBlockStyle}" />
+			</Grid>
+			<Button Grid.Row="3" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Stretch">
+				<Button.Content>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Zapłać" VerticalAlignment="Center" Style="{StaticResource TitleLargeTextBlockStyle}" />
+						<TextBlock Text="{x:Bind viewModel.StrTotal, Mode=OneWay}" Style="{StaticResource TitleLargeTextBlockStyle}"
+						           Margin="15,0,0,0" />
+						<FontIcon Glyph="&#xE970;" FontSize="45" />
+					</StackPanel>
+				</Button.Content>
+			</Button>
+		</Grid>
 	</Grid>
 </Page>
