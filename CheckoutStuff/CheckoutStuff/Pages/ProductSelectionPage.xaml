@@ -10,7 +10,7 @@
 	xmlns:configuration="using:CheckoutStuff.Configuration"
 	mc:Ignorable="d">
 
-	<StackPanel Orientation="Vertical" Spacing="16">
+	<Grid RowDefinitions="Auto,*" RowSpacing="16">
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 			<Button Style="{StaticResource AccentButtonStyle}" Margin="0,0,12,0" Click="ProductBackButton_OnClicked">
 				<Button.Content>
@@ -25,7 +25,7 @@
 			<TextBlock Text="{x:Bind _category.Name, Mode=OneWay}"
 			           Style="{StaticResource BodyLargeStrongTextBlockStyle}" VerticalAlignment="Center" />
 		</StackPanel>
-		<ItemsView ItemsSource="{x:Bind _category.Products, Mode=OneWay}" SelectionMode="None"
+		<ItemsView Grid.Row="1" ItemsSource="{x:Bind _category.Products, Mode=OneWay}" SelectionMode="None"
 		           IsItemInvokedEnabled="True" ItemInvoked="ProductItemView_ItemInvoked">
 			<ItemsView.Layout>
 				<UniformGridLayout ItemsStretch="Fill" MinColumnSpacing="16" MinRowSpacing="16" />
@@ -46,6 +46,6 @@
 				</DataTemplate>
 			</ItemsView.ItemTemplate>
 		</ItemsView>
-	</StackPanel>
+	</Grid>
 
 </Page>

@@ -28,6 +28,10 @@ public sealed partial class CategorySelectionPage : Page, INotifyPropertyChanged
 			productGroups = new ObservableCollection<ProductGroup>(await Configuration.Configuration.ParseProductInfo());
 			OnPropertyChanged(nameof(productGroups));
 		};
+		WeakReferenceMessenger.Default.Register<ReloadProductListsMessage>(this, async (r, m) => {
+			productGroups = new ObservableCollection<ProductGroup>(await Configuration.Configuration.ParseProductInfo());
+			OnPropertyChanged(nameof(productGroups));
+		});
 	}
 
 	private void CategoryItemView_ItemInvoked(ItemsView sender, ItemsViewItemInvokedEventArgs args) {

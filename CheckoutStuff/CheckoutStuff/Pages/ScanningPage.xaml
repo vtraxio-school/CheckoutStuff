@@ -11,15 +11,30 @@
 	xmlns:viewModels="using:CheckoutStuff.ViewModels"
 	mc:Ignorable="d">
 
-	<Grid Padding="36" ColumnSpacing="16">
+	<Grid Padding="36" ColumnSpacing="16" RowSpacing="16">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="3*" />
 			<ColumnDefinition Width="2*" MaxWidth="750" />
 		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
 
-		<Frame x:Name="InteractiveFrame" SourcePageType="local:StartPage"/>
+		<Frame x:Name="InteractiveFrame" SourcePageType="local:StartPage" />
 
-		<Grid Grid.Column="1" RowDefinitions="*,Auto,Auto,Auto" RowSpacing="24">
+		<StackPanel Grid.Row="1" Orientation="Horizontal">
+			<Button Style="{StaticResource SubtleButtonStyle}" Click="StaffLoginButton_OnClick">
+				<Button.Content>
+					<StackPanel Orientation="Vertical" Spacing="8">
+						<SymbolIcon Symbol="Contact" HorizontalAlignment="Center" />
+						<TextBlock Text="Obsługa" HorizontalAlignment="Center" />
+					</StackPanel>
+				</Button.Content>
+			</Button>
+		</StackPanel>
+
+		<Grid Grid.Column="1" Grid.RowSpan="2" RowDefinitions="*,Auto,Auto,Auto" RowSpacing="24">
 			<ItemsView x:Name="AddedItems" ItemsSource="{x:Bind viewModel.AddedProducts, Mode=OneWay}" SelectionMode="Single"
 			           SelectionChanged="AddedProducts_ItemSelected">
 				<ItemsView.ItemTemplate>
@@ -49,7 +64,8 @@
 				           Foreground="{ThemeResource SystemFillColorSuccessBrush}"
 				           Style="{StaticResource SubtitleTextBlockStyle}" />
 			</Grid>
-			<Button Grid.Row="3" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Stretch" Click="PurchaseButton_OnClick" IsEnabled="{x:Bind viewModel.CanCheckout, Mode=OneWay}">
+			<Button Grid.Row="3" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Stretch"
+			        Click="PurchaseButton_OnClick" IsEnabled="{x:Bind viewModel.CanCheckout, Mode=OneWay}">
 				<Button.Content>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="Zapłać" VerticalAlignment="Center" Style="{StaticResource TitleLargeTextBlockStyle}" />

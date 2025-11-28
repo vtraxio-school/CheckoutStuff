@@ -1,5 +1,6 @@
-using CheckoutStuff.Configuration;
+using System;
 using CheckoutStuff.ViewModels;
+using CheckoutStuff.Windows;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -28,6 +29,19 @@ public sealed partial class ScanningPage : Page {
 	private void PurchaseButton_OnClick(object sender, RoutedEventArgs e) {
 		if (viewModel.AddedProducts.Count > 0) {
 			InteractiveFrame.Navigate(typeof(PaymentMetodPage));
+		}
+	}
+
+	private async void StaffLoginButton_OnClick(object sender, RoutedEventArgs e) {
+		StaffSignInContentDialog dialog = new() {
+			XamlRoot = XamlRoot
+		};
+
+		await dialog.ShowAsync();
+
+		if (dialog.Authorized) {
+			AdminWindow window = new();
+			window.Activate();
 		}
 	}
 }

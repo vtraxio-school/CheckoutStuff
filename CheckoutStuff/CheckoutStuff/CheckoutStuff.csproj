@@ -13,11 +13,15 @@
 	<LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Pages\Admin\CategoryEditPage.xaml" />
+    <None Remove="Pages\Admin\ProductEditPage.xaml" />
     <None Remove="Pages\CategorySelectionPage.xaml" />
     <None Remove="Pages\PaymentMetodPage.xaml" />
     <None Remove="Pages\ProductSelectionPage.xaml" />
     <None Remove="Pages\ScanningPage.xaml" />
     <None Remove="Pages\StartPage.xaml" />
+    <None Remove="StaffSignInContentDialog.xaml" />
+    <None Remove="Windows\AdminWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -185,6 +189,18 @@
     <None Update="Assets\config.rcf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="Pages\Admin\ProductEditPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Admin\CategoryEditPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Windows\AdminWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="StaffSignInContentDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Pages\StartPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

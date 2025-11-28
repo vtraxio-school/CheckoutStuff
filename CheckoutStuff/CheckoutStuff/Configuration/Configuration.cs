@@ -18,6 +18,7 @@ internal enum PriceClass {
 internal class Product {
 	public required string Name { get; set; }
 	public required BitmapImage Image { get; set; }
+	public required string ImageName { get; set; }
 	public PriceClass PriceClass { get; set; }
 	public float Price { get; set; }
 	public string StrPrice => $"{Price:C}";
@@ -35,6 +36,7 @@ internal class Product {
 internal class ProductGroup {
 	public required string Name { get; set; }
 	public required BitmapImage Image { get; set; }
+	public required string ImageName { get; set; }
 	public required List<Product> Products { get; set; }
 }
 
@@ -98,13 +100,17 @@ internal static class Configuration {
 	}
 
 	private static async Task<BitmapImage> OpenImage(StorageFolder folder, string name) {
-		var file = await folder.GetFileAsync(name);
-		using var fileStream = await file.OpenReadAsync();
+		try {
+			var file = await folder.GetFileAsync(name);
+			using var fileStream = await file.OpenReadAsync();
 
-		BitmapImage image = new();
-		await image.SetSourceAsync(fileStream);
+			BitmapImage image = new();
+			await image.SetSourceAsync(fileStream);
 
-		return image;
+			return image;
+		} catch {
+			return new BitmapImage();
+		}
 	}
 
 	public static async Task<List<ProductGroup>> ParseProductInfo() {
@@ -127,13 +133,14 @@ internal static class Configuration {
 			switch (cmd) {
 				case "GROUP": {
 					if (args.Length < 2) {
-						throw new Exception("GROUP command requires at least 2 arguments: Name and Image");
+						continue;
 					}
 
 					var image = await OpenImage(folder, args[1]);
 					currentGroup = new ProductGroup {
 						Name = args[0],
 						Image = image,
+						ImageName = args[1],
 						Products = []
 					};
 				}
@@ -148,10 +155,15 @@ internal static class Configuration {
 
 					break;
 				case "PRODUCT": {
+					if (args.Length < 4) {
+						continue;
+					}
+
 					var image = await OpenImage(folder, args[1]);
 					var product = new Product {
 						Name = args[0],
 						Image = image,
+						ImageName = args[1],
 						PriceClass = args[2] == "KG" ? PriceClass.Weight : PriceClass.Single,
 						Price = float.Parse(args[3])
 					};
