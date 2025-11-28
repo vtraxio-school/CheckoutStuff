@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -37,10 +39,8 @@ internal class ProductGroup {
 }
 
 internal static class Configuration {
-	public static string ConfigurationFile = "Assets/Definitions/default.rcf";
-
-	private static List<string> GetSection(string file, string section) {
-		var content = File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, file));
+	private static async Task<List<string>> GetSection(StorageFile file, string section) {
+		var content = await FileIO.ReadLinesAsync(file);
 		content = content.Select(x => x.Trim()).ToArray();
 
 		var inSection = new List<string>();
@@ -97,19 +97,27 @@ internal static class Configuration {
 		return (cmd, args.ToArray());
 	}
 
-	private static BitmapImage OpenImage(string name) {
-		var path = Path.Combine(AppContext.BaseDirectory, "Assets/Images/", name).Replace("/", "\\");
-		var file = StorageFile.GetFileFromPathAsync(path).AsTask().Result;
-		using IRandomAccessStream fileStream = file.OpenReadAsync().AsTask().Result;
+	private static async Task<BitmapImage> OpenImage(StorageFolder folder, string name) {
+		var file = await folder.GetFileAsync(name);
+		using var fileStream = await file.OpenReadAsync();
 
 		BitmapImage image = new();
-		image.SetSource(fileStream);
+		await image.SetSourceAsync(fileStream);
 
 		return image;
 	}
 
-	public static List<ProductGroup> ParseProductInfo() {
-		var productInfo = GetSection(ConfigurationFile, "PROD");
+	public static async Task<List<ProductGroup>> ParseProductInfo() {
+		var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Configuration", CreationCollisionOption.OpenIfExists);
+		try {
+			var f = await folder.GetFileAsync("config.rcf");
+		} catch {
+			System.IO.Compression.ZipFile.ExtractToDirectory(Path.Combine(AppContext.BaseDirectory, "Assets/DefaultStore.zip"), folder.Path);
+		}
+
+		var config = await folder.GetFileAsync("config.rcf");
+
+		var productInfo = await GetSection(config, "PROD");
 		var commands = productInfo.Select(SplitCommand).ToList();
 
 		var productGroups = new List<ProductGroup>();
@@ -117,18 +125,18 @@ internal static class Configuration {
 
 		foreach (var (cmd, args) in commands) {
 			switch (cmd) {
-				case "GROUP":
+				case "GROUP": {
 					if (args.Length < 2) {
 						throw new Exception("GROUP command requires at least 2 arguments: Name and Image");
 					}
 
-
+					var image = await OpenImage(folder, args[1]);
 					currentGroup = new ProductGroup {
 						Name = args[0],
-						Image = OpenImage(args[1]),
+						Image = image,
 						Products = []
 					};
-
+				}
 					break;
 				case "ENDGROUP":
 					if (currentGroup != null) {
@@ -139,14 +147,16 @@ internal static class Configuration {
 					}
 
 					break;
-				case "PRODUCT":
+				case "PRODUCT": {
+					var image = await OpenImage(folder, args[1]);
 					var product = new Product {
 						Name = args[0],
-						Image = OpenImage(args[1]),
+						Image = image,
 						PriceClass = args[2] == "KG" ? PriceClass.Weight : PriceClass.Single,
 						Price = float.Parse(args[3])
 					};
 					currentGroup?.Products.Add(product);
+				}
 					break;
 			}
 		}

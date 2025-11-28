@@ -11,7 +11,7 @@
 	mc:Ignorable="d">
 
 
-	<ItemsView ItemsSource="{x:Bind productGroups}" SelectionMode="None" IsItemInvokedEnabled="True"
+	<ItemsView ItemsSource="{x:Bind productGroups, Mode=OneWay}" SelectionMode="None" IsItemInvokedEnabled="True"
 	           ItemInvoked="CategoryItemView_ItemInvoked">
 		<ItemsView.Layout>
 			<UniformGridLayout ItemsStretch="Fill" MinColumnSpacing="16" MinRowSpacing="16" />

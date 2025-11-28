@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Windows.Networking.NetworkOperators;
+using Windows.Storage;
 using CheckoutStuff.Configuration;
 using CheckoutStuff.Messages;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -38,19 +39,26 @@ internal partial class ScanningPageViewModel : ObservableObject {
 
 	public ScanningPageViewModel() {
 		WeakReferenceMessenger.Default.Register<ProductSelectedMessage>(this, (r, m) => { AddProduct(m.Value); });
-		WeakReferenceMessenger.Default.Register<PaymentCompletedMessage>(this, (r, m) => {
-			var paragon = "Fajny sklep\n================================\n";
+		WeakReferenceMessenger.Default.Register<PaymentCompletedMessage>(this, async (r, m) => {
+			var receipt = "Fajny sklep\n================================\n";
 
 			foreach (var product in AddedProducts) {
-				paragon += $"{product.Product.Name} - {product.StrCountingPrice} - {product.StrTotalPrice}\n";
+				receipt += $"{product.Product.Name} - {product.StrCountingPrice} - {product.StrTotalPrice}\n";
 			}
 
-			paragon += $"================================\n{StrTotal} ";
-			paragon += m.Value == PaymentType.Card ? "Karta" : "Gotówka";
+			receipt += $"================================\n{StrTotal} ";
+			var paymentType = m.Value == PaymentType.Card ? "Karta" : "Gotówka";
+			receipt += paymentType;
 
-			var name = Path.Join(AppContext.BaseDirectory, $"Paragon_{DateTime.Now.ToBinary()}.txt");
-			File.WriteAllText(name, paragon);
-			Process.Start("notepad.exe", name);
+			var localFolder = ApplicationData.Current.LocalFolder;
+			var receiptFolder = await localFolder.CreateFolderAsync("Paragony", CreationCollisionOption.OpenIfExists);
+			var receiptFile = await receiptFolder.CreateFileAsync($"Paragon_{DateTime.Now.ToBinary()}.txt", CreationCollisionOption.ReplaceExisting);
+			await FileIO.WriteTextAsync(receiptFile, receipt);
+			Process.Start("notepad.exe", receiptFile.Path);
+
+			var paymentsFile = (StorageFile)await localFolder.TryGetItemAsync("Płatności.txt") ?? await localFolder.CreateFileAsync("Płatności.txt");
+
+			await FileIO.AppendTextAsync(paymentsFile, $"Płatność {StrTotal} {paymentType} - {DateTime.Now.ToString()}\n");
 
 			AddedProducts.Clear();
 			AddedItemsChanged();

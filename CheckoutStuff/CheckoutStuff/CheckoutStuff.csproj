@@ -13,9 +13,6 @@
 	<LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Assets\Definitions\default.rcf" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Pages\CategorySelectionPage.xaml" />
     <None Remove="Pages\PaymentMetodPage.xaml" />
     <None Remove="Pages\ProductSelectionPage.xaml" />
@@ -38,154 +35,154 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Assets\Images\Banany.png">
+    <Content Update="Assets\Banany.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Chleb.png">
+    <Content Update="Assets\Chleb.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Colgate.png">
+    <Content Update="Assets\Colgate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Cukier.png">
+    <Content Update="Assets\Cukier.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Cytryny.png">
+    <Content Update="Assets\Cytryny.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Czekolada.png">
+    <Content Update="Assets\Czekolada.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Domestos.png">
+    <Content Update="Assets\DefaultStore.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Domestos.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Dove.png">
+    <Content Update="Assets\Dove.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Dżem.png">
+    <Content Update="Assets\Dżem.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Herbata.png">
+    <Content Update="Assets\Jabłka.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Jabłka.png">
+    <Content Update="Assets\Jaja.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Jaja.png">
+    <Content Update="Assets\Jogurt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Jogurt.png">
+    <Content Update="Assets\Kajzerka.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Kajzerka.png">
+    <Content Update="Assets\Ketchup.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Ketchup.png">
+    <Content Update="Assets\Kiełbasa.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Kiełbasa.png">
+    <Content Update="Assets\Kurczak.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Kurczak.png">
+    <Content Update="Assets\Ludwik.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Ludwik.png">
+    <Content Update="Assets\Margaryna.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Margaryna.png">
+    <Content Update="Assets\Masło.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Masło.png">
+    <Content Update="Assets\Matjasy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Matjasy.png">
+    <Content Update="Assets\Mleko.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Mleko.png">
+    <Content Update="Assets\Musztarda.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Musztarda.png">
+    <Content Update="Assets\Mąka.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Mąka.png">
+    <Content Update="Assets\Olej.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Olej.png">
+    <Content Update="Assets\Papier.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Papier.png">
+    <Content Update="Assets\Papryka.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Papryka.png">
+    <Content Update="Assets\Parówki.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Parówki.png">
+    <Content Update="Assets\Penne.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Penne.png">
+    <Content Update="Assets\Pieczarki.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Pieczarki.png">
+    <Content Update="Assets\Polędwica.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Polędwica.png">
+    <Content Update="Assets\Pomarańcze.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Pomarańcze.png">
+    <Content Update="Assets\Pomidory.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Pomidory.png">
+    <Content Update="Assets\Płatki.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Płatki.png">
+    <Content Update="Assets\Ręcznik.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Ręcznik.png">
+    <Content Update="Assets\Schab.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Schab.png">
+    <Content Update="Assets\Ser.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Ser.png">
+    <Content Update="Assets\Serek.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Serek.png">
+    <Content Update="Assets\Sokj.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Sokj.png">
+    <Content Update="Assets\Sokp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Sokp.png">
+    <Content Update="Assets\Spaghetti.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Spaghetti.png">
+    <Content Update="Assets\Szampon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Szampon.png">
+    <Content Update="Assets\Szynka.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Szynka.png">
+    <Content Update="Assets\Sól.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Sól.png">
+    <Content Update="Assets\Vizir.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Vizir.png">
+    <Content Update="Assets\Woda.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Woda.png">
+    <Content Update="Assets\Ziemniaki.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Ziemniaki.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Śmietana.png">
+    <Content Update="Assets\Śmietana.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\Definitions\default.rcf">
+    <None Update="Assets\config.rcf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Page Update="Pages\StartPage.xaml">
