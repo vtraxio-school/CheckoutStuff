@@ -1,10 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using Windows.Networking.NetworkOperators;
 using CheckoutStuff.Configuration;
+using CheckoutStuff.Messages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 
 namespace CheckoutStuff.ViewModels;
@@ -22,14 +26,7 @@ internal partial class AddedProduct : ObservableObject {
 
 internal partial class ScanningPageViewModel : ObservableObject {
 	[ObservableProperty]
-	private ObservableCollection<ProductGroup> productGroups = new(Configuration.Configuration.ParseProductInfo());
-
-	[ObservableProperty]
-	[NotifyPropertyChangedFor(nameof(GroupsVisibility))]
-	[NotifyPropertyChangedFor(nameof(ProductVisibility))]
-	private ProductGroup? selectedGroup;
-
-	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(CanCheckout))]
 	private ObservableCollection<AddedProduct> addedProducts = [];
 
 	[ObservableProperty]
@@ -37,16 +34,29 @@ internal partial class ScanningPageViewModel : ObservableObject {
 	private Product? selectedProduct;
 
 	public string StrTotal => AddedProducts.Select(x => x.Count * x.Product.Price).Sum().ToString("C");
+	public bool CanCheckout => AddedProducts.Count > 0;
 
-	public Visibility GroupsVisibility => SelectedGroup is null ? Visibility.Visible : Visibility.Collapsed;
-	public Visibility ProductVisibility => SelectedGroup is null ? Visibility.Collapsed : Visibility.Visible;
+	public ScanningPageViewModel() {
+		WeakReferenceMessenger.Default.Register<ProductSelectedMessage>(this, (r, m) => { AddProduct(m.Value); });
+		WeakReferenceMessenger.Default.Register<PaymentCompletedMessage>(this, (r, m) => {
+			var paragon = "Fajny sklep\n================================\n";
 
-	[RelayCommand]
-	public void SelectGroup(ProductGroup? group) {
-		SelectedGroup = group;
+			foreach (var product in AddedProducts) {
+				paragon += $"{product.Product.Name} - {product.StrCountingPrice} - {product.StrTotalPrice}\n";
+			}
+
+			paragon += $"================================\n{StrTotal} ";
+			paragon += m.Value == PaymentType.Card ? "Karta" : "Gotówka";
+
+			var name = Path.Join(AppContext.BaseDirectory, $"Paragon_{DateTime.Now.ToBinary()}.txt");
+			File.WriteAllText(name, paragon);
+			Process.Start("notepad.exe", name);
+
+			AddedProducts.Clear();
+			AddedItemsChanged();
+		});
 	}
 
-	[RelayCommand]
 	public void AddProduct(Product product) {
 		if (AddedProducts.Any(x => x.Product == product)) {
 			var item = AddedProducts.First(x => x.Product == product);
@@ -61,7 +71,7 @@ internal partial class ScanningPageViewModel : ObservableObject {
 			});
 		}
 
-		OnPropertyChanged(nameof(StrTotal));
+		AddedItemsChanged();
 	}
 
 	[RelayCommand]
@@ -80,8 +90,13 @@ internal partial class ScanningPageViewModel : ObservableObject {
 			AddedProducts.Insert(index, item);
 		}
 
-		OnPropertyChanged(nameof(StrTotal));
+		AddedItemsChanged();
 		SelectedProduct = null;
+	}
+
+	void AddedItemsChanged() {
+		OnPropertyChanged(nameof(StrTotal));
+		OnPropertyChanged(nameof(CanCheckout));
 	}
 
 	bool CanDelete() {

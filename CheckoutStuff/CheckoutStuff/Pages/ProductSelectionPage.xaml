@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Page
+	x:Class="CheckoutStuff.Pages.ProductSelectionPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:CheckoutStuff.Pages"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:configuration="using:CheckoutStuff.Configuration"
+	mc:Ignorable="d">
+
+	<StackPanel Orientation="Vertical" Spacing="16">
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button Style="{StaticResource AccentButtonStyle}" Margin="0,0,12,0" Click="ProductBackButton_OnClicked">
+				<Button.Content>
+					<StackPanel Orientation="Horizontal" Spacing="8">
+						<SymbolIcon Symbol="Back" />
+						<TextBlock Text="Powróć" />
+					</StackPanel>
+				</Button.Content>
+			</Button>
+
+			<Image Source="{x:Bind _category.Image, Mode=OneWay}" Height="35" Margin="0,0,6,0" />
+			<TextBlock Text="{x:Bind _category.Name, Mode=OneWay}"
+			           Style="{StaticResource BodyLargeStrongTextBlockStyle}" VerticalAlignment="Center" />
+		</StackPanel>
+		<ItemsView ItemsSource="{x:Bind _category.Products, Mode=OneWay}" SelectionMode="None"
+		           IsItemInvokedEnabled="True" ItemInvoked="ProductItemView_ItemInvoked">
+			<ItemsView.Layout>
+				<UniformGridLayout ItemsStretch="Fill" MinColumnSpacing="16" MinRowSpacing="16" />
+			</ItemsView.Layout>
+
+			<ItemsView.ItemTemplate>
+				<DataTemplate x:DataType="configuration:Product">
+					<ItemContainer>
+						<StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Padding="16">
+							<Image Source="{x:Bind Image}" Height="100" />
+							<TextBlock Text="{x:Bind Name}" Style="{StaticResource BodyTextBlockStyle}" TextWrapping="Wrap" />
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="{x:Bind StrPrice}" Foreground="{ThemeResource AccentTextFillColorSecondaryBrush}" />
+								<TextBlock Text="{x:Bind StrPriceClass}" TextAlignment="End" />
+							</StackPanel>
+						</StackPanel>
+					</ItemContainer>
+				</DataTemplate>
+			</ItemsView.ItemTemplate>
+		</ItemsView>
+	</StackPanel>
+
+</Page>

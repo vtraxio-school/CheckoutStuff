@@ -19,27 +19,15 @@ public sealed partial class ScanningPage : Page {
 		viewModel = new ScanningPageViewModel();
 	}
 
-	private void ButtonBase_OnClick(object sender, RoutedEventArgs e) {
-		Configuration.Configuration.ParseProductInfo();
-	}
-
-	private void GroupItemView_ItemInvoked(ItemsView sender, ItemsViewItemInvokedEventArgs args) {
-		var group = args.InvokedItem as ProductGroup;
-		viewModel.SelectGroupCommand.Execute(group);
-	}
-
-	private void CategoryBackButton_OnClicked(object sender, RoutedEventArgs e) {
-		viewModel.SelectGroupCommand.Execute(null);
-	}
-
-	private void ProductItemView_ItemInvoked(ItemsView sender, ItemsViewItemInvokedEventArgs args) {
-		var product = args.InvokedItem as Product;
-		viewModel.AddProductCommand.Execute(product);
-	}
-
 	private void AddedProducts_ItemSelected(ItemsView sender, ItemsViewSelectionChangedEventArgs args) {
 		if (AddedItems.SelectedItem is AddedProduct product) {
 			viewModel.SelectItemCommand.Execute(product.Product);
+		}
+	}
+
+	private void PurchaseButton_OnClick(object sender, RoutedEventArgs e) {
+		if (viewModel.AddedProducts.Count > 0) {
+			InteractiveFrame.Navigate(typeof(PaymentMetodPage));
 		}
 	}
 }

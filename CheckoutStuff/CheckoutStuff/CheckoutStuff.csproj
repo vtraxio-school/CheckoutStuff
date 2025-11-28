@@ -16,7 +16,11 @@
     <Content Remove="Assets\Definitions\default.rcf" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Pages\CategorySelectionPage.xaml" />
+    <None Remove="Pages\PaymentMetodPage.xaml" />
+    <None Remove="Pages\ProductSelectionPage.xaml" />
     <None Remove="Pages\ScanningPage.xaml" />
+    <None Remove="Pages\StartPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,9 +65,6 @@
     <Content Update="Assets\Images\Dżem.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Images\Hawking.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\Images\Herbata.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -77,9 +78,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\Kajzerka.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Kawa.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\Ketchup.png">
@@ -128,9 +126,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\Pieczarki.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Images\Piwo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Images\Polędwica.png">
@@ -193,6 +188,18 @@
     <None Update="Assets\Definitions\default.rcf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="Pages\StartPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\PaymentMetodPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\ProductSelectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\CategorySelectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
