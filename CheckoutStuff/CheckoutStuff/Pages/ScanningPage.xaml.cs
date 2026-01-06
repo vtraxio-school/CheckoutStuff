@@ -44,4 +44,12 @@ public sealed partial class ScanningPage : Page {
 			window.Activate();
 		}
 	}
+
+	private async void DiscountButton_OnClick(object sender, RoutedEventArgs e) {
+		CouponApplyContentDialog dialog = new() {
+			XamlRoot = XamlRoot
+		};
+
+		await dialog.ShowAsync();
+	}
 }

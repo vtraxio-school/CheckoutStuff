@@ -34,7 +34,7 @@
 			</Button>
 		</StackPanel>
 
-		<Grid Grid.Column="1" Grid.RowSpan="2" RowDefinitions="*,Auto,Auto,Auto" RowSpacing="24">
+		<Grid Grid.Column="1" Grid.RowSpan="2" RowDefinitions="*,Auto,Auto,Auto,Auto" RowSpacing="24">
 			<ItemsView x:Name="AddedItems" ItemsSource="{x:Bind viewModel.AddedProducts, Mode=OneWay}" SelectionMode="Single"
 			           SelectionChanged="AddedProducts_ItemSelected">
 				<ItemsView.ItemTemplate>
@@ -72,6 +72,15 @@
 						<TextBlock Text="{x:Bind viewModel.StrTotal, Mode=OneWay}" Style="{StaticResource TitleLargeTextBlockStyle}"
 						           Margin="15,0,0,0" />
 						<FontIcon Glyph="&#xE970;" FontSize="45" />
+					</StackPanel>
+				</Button.Content>
+			</Button>
+			<Button Grid.Row="4" HorizontalAlignment="Stretch" Click="DiscountButton_OnClick"
+			        IsEnabled="{x:Bind viewModel.HasNoDiscount, Mode=OneWay}">
+				<Button.Content>
+					<StackPanel Orientation="Horizontal">
+						<FontIcon Glyph="&#xE710;" FontSize="20" />
+						<TextBlock Text="Dodaj Rabat" VerticalAlignment="Center" Style="{StaticResource BodyLargeTextBlockStyle}" />
 					</StackPanel>
 				</Button.Content>
 			</Button>

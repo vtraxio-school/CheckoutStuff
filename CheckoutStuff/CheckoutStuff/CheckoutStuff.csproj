@@ -36,6 +36,8 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+    <PackageReference Include="QRCoder" Version="1.7.0" />
+    <PackageReference Include="SocketIOClient" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -194,6 +196,9 @@
     </Page>
     <Page Update="Pages\Admin\CategoryEditPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="CouponApplyContentDialog.xaml">
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\AdminWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

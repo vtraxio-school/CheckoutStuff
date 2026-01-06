@@ -34,8 +34,15 @@ internal partial class ScanningPageViewModel : ObservableObject {
 	[NotifyCanExecuteChangedFor(nameof(DeleteItemCommand))]
 	private Product? selectedProduct;
 
-	public string StrTotal => AddedProducts.Select(x => x.Count * x.Product.Price).Sum().ToString("C");
-	public bool CanCheckout => AddedProducts.Count > 0;
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(StrDiscount))]
+	[NotifyPropertyChangedFor(nameof(HasNoDiscount))]
+	private float discountPrecentage;
+
+	public string StrDiscount => $"{Math.Floor(DiscountPrecentage * 100)} - {(AddedProducts.Select(x => x.Count * x.Product.Price).Sum() * DiscountPrecentage):C}";
+	public string StrTotal => (AddedProducts.Select(x => x.Count * x.Product.Price).Sum() * (1f - DiscountPrecentage)).ToString("C");
+	public bool CanCheckout => AddedProducts.Count  > 0;
+	public bool HasNoDiscount => DiscountPrecentage == 0;
 
 	public ScanningPageViewModel() {
 		WeakReferenceMessenger.Default.Register<ProductSelectedMessage>(this, (r, m) => { AddProduct(m.Value); });
@@ -105,6 +112,7 @@ internal partial class ScanningPageViewModel : ObservableObject {
 	void AddedItemsChanged() {
 		OnPropertyChanged(nameof(StrTotal));
 		OnPropertyChanged(nameof(CanCheckout));
+		OnPropertyChanged(nameof(StrDiscount));
 	}
 
 	bool CanDelete() {
