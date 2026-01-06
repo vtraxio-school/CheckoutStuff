@@ -35,14 +35,15 @@ internal partial class ScanningPageViewModel : ObservableObject {
 	private Product? selectedProduct;
 
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(StrTotal))]
 	[NotifyPropertyChangedFor(nameof(StrDiscount))]
-	[NotifyPropertyChangedFor(nameof(HasNoDiscount))]
-	private float discountPrecentage;
+	[NotifyPropertyChangedFor(nameof(HasDiscount))]
+	private double discountPrecentage;
 
-	public string StrDiscount => $"{Math.Floor(DiscountPrecentage * 100)} - {(AddedProducts.Select(x => x.Count * x.Product.Price).Sum() * DiscountPrecentage):C}";
+	public string StrDiscount => $"{Math.Floor(DiscountPrecentage * 100)}% - {(AddedProducts.Select(x => x.Count * x.Product.Price).Sum() * DiscountPrecentage):C}";
 	public string StrTotal => (AddedProducts.Select(x => x.Count * x.Product.Price).Sum() * (1f - DiscountPrecentage)).ToString("C");
-	public bool CanCheckout => AddedProducts.Count  > 0;
-	public bool HasNoDiscount => DiscountPrecentage == 0;
+	public bool CanCheckout => AddedProducts.Count > 0;
+	public bool HasDiscount => DiscountPrecentage  != 0;
 
 	public ScanningPageViewModel() {
 		WeakReferenceMessenger.Default.Register<ProductSelectedMessage>(this, (r, m) => { AddProduct(m.Value); });
@@ -53,7 +54,7 @@ internal partial class ScanningPageViewModel : ObservableObject {
 				receipt += $"{product.Product.Name} - {product.StrCountingPrice} - {product.StrTotalPrice}\n";
 			}
 
-			receipt += $"================================\n{StrTotal} ";
+			receipt += $"================================\n{(HasDiscount ? $"Rabat: {StrDiscount}\n" : "")}{StrTotal} ";
 			var paymentType = m.Value == PaymentType.Card ? "Karta" : "Gotówka";
 			receipt += paymentType;
 
@@ -68,7 +69,11 @@ internal partial class ScanningPageViewModel : ObservableObject {
 			await FileIO.AppendTextAsync(paymentsFile, $"Płatność {StrTotal} {paymentType} - {DateTime.Now.ToString()}\n");
 
 			AddedProducts.Clear();
+			DiscountPrecentage = 0;
 			AddedItemsChanged();
+		});
+		WeakReferenceMessenger.Default.Register<CouponAppliedS2CMessage>(this, (r, m) => {
+			DiscountPrecentage = m.Value.discountPercentage; 
 		});
 	}
 
@@ -107,6 +112,11 @@ internal partial class ScanningPageViewModel : ObservableObject {
 
 		AddedItemsChanged();
 		SelectedProduct = null;
+	}
+
+	[RelayCommand]
+	public void RemoveDiscount() {
+		DiscountPrecentage = 0;
 	}
 
 	void AddedItemsChanged() {

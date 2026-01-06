@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using CheckoutStuff.Pages;
+using Microsoft.UI.Dispatching;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -14,6 +15,7 @@ namespace CheckoutStuff;
 /// </summary>
 public partial class App : Application {
 	private Window? _window;
+	public static DispatcherQueue UIDispatcher { get; private set; }
 
 	/// <summary>
 	/// Initializes the singleton application object.  This is the first line of authored code
@@ -21,6 +23,7 @@ public partial class App : Application {
 	/// </summary>
 	public App() {
 		InitializeComponent();
+		UIDispatcher = DispatcherQueue.GetForCurrentThread();
 	}
 
 	/// <summary>

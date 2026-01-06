@@ -1,7 +1,10 @@
 using System;
+using System.Diagnostics;
 using Windows.Storage.Streams;
+using CheckoutStuff.Messages;
 using Microsoft.UI.Xaml.Controls;
 using CheckoutStuff.Socket;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml.Media.Imaging;
 using QRCoder;
 
@@ -34,6 +37,10 @@ public sealed partial class CouponApplyContentDialog : ContentDialog {
 			_qrCodeImage.SetSource(stream);
 		}
 
+		Closing += (sender, args) => { WeakReferenceMessenger.Default.Unregister<CouponAppliedS2CMessage>(this); };
+
 		InitializeComponent();
+
+		WeakReferenceMessenger.Default.Register<CouponAppliedS2CMessage>(this, (r, m) => { Hide(); });
 	}
 }

@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text.Json;
 using System.Threading.Tasks;
 using CheckoutStuff.Messages;
 using CommunityToolkit.Mvvm.Messaging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using SocketIO.Serializer.NewtonsoftJson;
+using SocketIO.Serializer.SystemTextJson;
 
 namespace CheckoutStuff.Socket {
 	internal class SocketC2S {
@@ -19,6 +24,11 @@ namespace CheckoutStuff.Socket {
 
 		public SocketC2S() {
 			_client = new SocketIOClient.SocketIO("http://localhost:3000");
+			_client.Serializer = new NewtonsoftJsonSerializer(new JsonSerializerSettings {
+				ContractResolver = new DefaultContractResolver {
+					NamingStrategy = new CamelCaseNamingStrategy()
+				}
+			});
 
 			Task.Run(async () => {
 				await _client.ConnectAsync();
@@ -30,7 +40,7 @@ namespace CheckoutStuff.Socket {
 
 				_client.On("couponApplied", response => {
 					var result = response.GetValue<CouponAppliedMessageDetails>();
-					WeakReferenceMessenger.Default.Send(new CouponAppliedS2CMessage(result));
+					App.UIDispatcher.TryEnqueue(() => { WeakReferenceMessenger.Default.Send(new CouponAppliedS2CMessage(result)); });
 				});
 
 				await _client.EmitAsync("register", response => {
